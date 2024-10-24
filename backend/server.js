@@ -15,7 +15,8 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'https://platterpal-qliz.onrender.com'  // Frontend origin
+  origin: 'https://platterpal-qliz.onrender.com',  // Frontend origin
+  origin: 'https://platterpal-admin.onrender.com' //Admin origin
 }));
 
 // DB connection 
