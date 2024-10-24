@@ -10,13 +10,7 @@
     margin-top: 100px;
 }
 
-.footer-img{
-    width: 170px;
-    height: 100px;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-}
+
 .footer-content{
     display: grid;
     width: 100%;

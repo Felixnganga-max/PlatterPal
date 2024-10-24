@@ -7,12 +7,12 @@ import userRouter from "./routes/userRouter.js"
 import cartRouter from "./routes/cartRoutes.js"
 import orderRouter from "./routes/orderRoute.js"
 
-
+const port = 4000 || process.env.PORT;
 
 
 // App config
 const app = express()
-const port = 4000
+
 
 // middleware
 app.use(express.json())
