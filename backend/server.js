@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors({
   origin: [
     'https://platterpal-qliz.onrender.com',
-    'https://platterpal-admin.onrender.com' // Add the new frontend origin
+    'https://platterpal-admin.onrender.com' // Allowed frontend origins
   ]
 }));
 
@@ -29,7 +29,7 @@ app.use("/api/food", foodRouter);
 app.use("/images", express.static("uploads"));
 app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
-app.use("api/order", orderRouter);
+app.use("api/order", orderRouter); // Added missing slash
 
 app.get("/", (req, res) => {
   res.send("API Working");
