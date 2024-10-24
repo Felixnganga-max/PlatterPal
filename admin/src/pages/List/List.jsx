@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const List = () => {
-  const url = "https://platterpal-backend.onrender.com/";
+  const url = "https://platterpal-backend.onrender.com";
   const [list, setList] = useState([]); // Initialize list as an array
 
   const fetchList = async () => {
