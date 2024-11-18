@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({
   origin: [
-    'https://platter-pal-frondend.vercel.app/'
+    'https://platter-pal-frondend.vercel.app'
   ]
 }));
 
