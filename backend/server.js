@@ -16,24 +16,9 @@ const app = express();
 app.use(express.json());
 app.use(cors({
   origin: [
-    'https://platterpal-qliz.onrender.com',
-    'https://platterpal-admin.onrender.com' // Allowed frontend origins
+    'https://platter-pal-frondend.vercel.app/'
   ]
 }));
-
-// middleware
-app.use(express.json())
-app.use(cors())
-
-// app.use(cors(
-//     {
-//         origin: ["http://localhost:3000"],
-//         methods: ["GET", "POST", "PUT", "DELETE"],
-//         allowedHeaders: ["Content-Type", "Authorization"],
-        
-//     }
-// ))
-
 
 // db connection 
 connectDB();
@@ -43,13 +28,13 @@ app.use("/api/food", foodRouter);
 app.use("/images", express.static("uploads"));
 app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
-app.use("api/order", orderRouter); // Added missing slash
+app.use("/api/order", orderRouter); // Corrected path
 
 app.get("/", (req, res) => {
   res.send("API Working");
 });
 
 // Start server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+app.listen(process.env.PORT || 4000, () => {
+  console.log(`Server running on port ${process.env.PORT || 4000}`);
 });
