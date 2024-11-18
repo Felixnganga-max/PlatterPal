@@ -21,7 +21,6 @@ app.use(cors({
   ]
 }));
 
-<<<<<<< HEAD
 // middleware
 app.use(express.json())
 app.use(cors())
@@ -37,9 +36,6 @@ app.use(cors())
 
 
 // db connection 
-=======
-// DB connection 
->>>>>>> c299891a7eded81be70e4c024a842076b5a04349
 connectDB();
 
 // API Endpoints
