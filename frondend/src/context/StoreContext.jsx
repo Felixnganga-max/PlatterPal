@@ -7,7 +7,7 @@ export const StoreContext = createContext(null);
 const StoreContextProvider = (props) => {
   
     const [cartItems, setCartItems] = useState({});
-    const url = "https://platterpal-backend.onrender.com"
+    const url = "https://platter-pal-nlbt.vercel.app/"
     const [token, setToken] = useState("")
     const [food_list, setFoodList] = useState([])
 
