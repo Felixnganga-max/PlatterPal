@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Add = () => {
 
-  const url = "http://localhost:4000";
+  const url = "https://platterpal-backend.onrender.com";
   const [image, setImage] = useState(false);
   const [imageKey, setImageKey] = useState(Date.now());  // To reset image input
   const [data, setData] = useState({

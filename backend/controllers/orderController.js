@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // Placing order for the frontend
 const placeOrder = async (req, res) => {
 
-    const frontend_url = "http://localhost:5174";  // Corrected 'frondend' to 'frontend'
+    const frontend_url = "https://platterpal-qliz.onrender.com/";  // Corrected 'frondend' to 'frontend'
     
     try {
         const newOrder = new orderModel({
