@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.js",
+      "src": "server.js", // Change to your server file (e.g., index.js, app.js)
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/api/(.*)", // Capture all API routes
+      "dest": "server.js" // Send them to your entry file
     }
   ]
 }
