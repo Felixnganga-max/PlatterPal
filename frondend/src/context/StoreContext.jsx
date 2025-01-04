@@ -1,52 +1,44 @@
 import { createContext, useEffect, useState } from "react";
-import axios from 'axios'
-
+import axios from 'axios';
 
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
-  
     const [cartItems, setCartItems] = useState({});
-    const url = "https://platterpal-backend.onrender.com"
-    const [token, setToken] = useState("")
-    const [food_list, setFoodList] = useState([])
-
+    const url = "http://localhost:4000"; // Fixed URL
+    const [token, setToken] = useState("");
+    const [food_list, setFoodList] = useState([]);
 
     const addToCart = async (itemId) => {
-        // Check if the user is adding the item for the first time in the cart
         if (!cartItems[itemId]) {
             setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
         } else {
             setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
         }
         if (token) {
-            await axios.post(url+"/api/cart/add", {itemId}, {headers:{token}})
+            await axios.post(url + "/api/cart/add", { itemId }, { headers: { token } });
         }
     };
 
     const removeFromCart = async (itemId) => {
-        // Ensure we don't go below zero
         setCartItems((prev) => {
             const newCount = prev[itemId] - 1;
             if (newCount <= 0) {
-                const { [itemId]: _, ...rest } = prev; // Remove item from cart
+                const { [itemId]: _, ...rest } = prev;
                 return rest;
             }
             return { ...prev, [itemId]: newCount };
         });
         if (token) {
-            await axios.post(url+"/api/cart/remove", {itemId},{headers:{token}})
+            await axios.post(url + "/api/cart/remove", { itemId }, { headers: { token } });
         }
     };
 
     const getTotals = () => {
         let totalAmount = 0;
-
         for (const itemId in cartItems) {
             if (cartItems[itemId] > 0) {
-                // Correctly find the item in food_list based on itemId
                 let itemInfo = food_list.find(item => item._id === itemId);
-                // Check if itemInfo exists before accessing its price
                 if (itemInfo) {
                     totalAmount += itemInfo.price * cartItems[itemId];
                 }
@@ -55,28 +47,35 @@ const StoreContextProvider = (props) => {
         return totalAmount;
     };
 
-    const fetchFoodList = async (params) => {
-        const response = await axios.get(url+"/api/food/list")
-        setFoodList(response.data.data)
-    }
+    const fetchFoodList = async () => {
+        try {
+            const response = await axios.get(url + "/api/food/list");
+            setFoodList(response.data.data);
+        } catch (error) {
+            console.error("Failed to fetch food list:", error);
+        }
+    };
 
     const loadCartData = async (token) => {
-        const response = await axios.post(url+"/api/cart/get",{}, {headers:{token}})
-        setCartItems(response.data.cartData)
-    }
-
-    useEffect(() =>{
-       
-        async function loadData() {
-        await fetchFoodList();
-        if (localStorage.getItem("token")) {
-            setToken(localStorage.getItem("token"))
-            await loadCartData(localStorage.getItem("token"))
+        try {
+            const response = await axios.post(url + "/api/cart/get", {}, { headers: { token } });
+            setCartItems(response.data.cartData);
+        } catch (error) {
+            console.error("Failed to load cart data:", error);
         }
+    };
+
+    useEffect(() => {
+        async function loadData() {
+            await fetchFoodList();
+            if (localStorage.getItem("token")) {
+                const storedToken = localStorage.getItem("token");
+                setToken(storedToken);
+                await loadCartData(storedToken);
+            }
         }
         loadData();
-    }, [])
-
+    }, []);
 
     const contextValue = {
         food_list,
@@ -84,9 +83,9 @@ const StoreContextProvider = (props) => {
         setCartItems,
         addToCart,
         removeFromCart,
-        getTotals, 
-        url, 
-        token, 
+        getTotals,
+        url,
+        token,
         setToken
     };
 
@@ -95,6 +94,6 @@ const StoreContextProvider = (props) => {
             {props.children}
         </StoreContext.Provider>
     );
-}
+};
 
 export default StoreContextProvider;

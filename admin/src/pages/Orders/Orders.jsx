@@ -4,8 +4,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { assets } from "../../assets/assets";
 
-const Orders = ({ url }) => {
+const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const url = 'http://localhost:4000'
 
   const fetchAllOrders = async () => {
     try {

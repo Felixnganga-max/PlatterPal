@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const List = () => {
-  const url = "https://platterpal-backend.onrender.com";
+  const url = "http://localhost:4000";
   const [list, setList] = useState([]); // Initialize list as an array
 
   const fetchList = async () => {
@@ -13,7 +13,8 @@ const List = () => {
 
       // console.log(response.data);
       if (response.data.success) {
-        setList(response.data.data);
+        // Reverse the list to display the latest first
+        setList(response.data.data.reverse());
       } else {
         toast.error("Error");
       }
@@ -28,10 +29,11 @@ const List = () => {
     await fetchList();
     if (response.data.success) {
       toast.success(response.data.message)
-    }else {
+    } else {
       toast.error("Error")
     }
   }
+
   useEffect(() => {
     fetchList();
   }, []);
@@ -56,7 +58,7 @@ const List = () => {
                 <p>{item.name}</p>
                 <p>{item.category}</p>
                 <p>${item.price}</p>
-                <p onClick={() =>removeFood(item._id)} className='cursor'>X</p>
+                <p onClick={() => removeFood(item._id)} className='cursor'>X</p>
               </div>
             );
           })
